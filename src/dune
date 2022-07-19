@@ -78,4 +78,9 @@
   (targets projects.ml)
   (deps projects.eml.ml)
   (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+(rule
+  (targets blog.ml)
+  (deps blog.eml.ml)
+  (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))

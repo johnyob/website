@@ -13,7 +13,10 @@ let page_routes =
   Dream.scope
     ""
     []
-    [ Dream.get "/" Handler.index; Dream.get "/projects/" Handler.projects ]
+    [ Dream.get "/" Handler.index
+    ; Dream.get "/projects/" Handler.projects
+    ; Dream.get "/blog/" Handler.blog
+    ]
 ;;
 
 let router =
@@ -21,7 +24,7 @@ let router =
     [ page_routes
     ; Dream.get "/asset/img/**" (Dream.static "asset/img")
     ; Dream.scope "" [] [ Dream.get "/**" (Dream.static ~loader:asset_loader "") ]
-    (* ; Dream_livereload.route () *)
+      (* ; Dream_livereload.route () *)
     ]
 ;;
 
