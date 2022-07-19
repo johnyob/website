@@ -1,0 +1,81 @@
+(library
+ (name website)
+ (libraries core dream lwt mirage-kv-mem dream-livereload)
+ (preprocess
+  (pps ppx_jane)))
+
+(include_subdirs unqualified)
+
+(rule
+ (targets asset.ml asset.mli)
+ (deps
+  %{workspace_root}/asset/css/main.css
+  (source_tree %{workspace_root}/asset))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m lwt %{workspace_root}/asset -o asset.ml))))
+
+(subdir
+ components/
+ (rule
+  (targets seo.ml)
+  (deps seo.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets hero.ml)
+  (deps hero.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets nav.ml)
+  (deps nav.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets container.ml)
+  (deps container.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets project.ml)
+  (deps project.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets about.ml)
+  (deps about.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets title.ml)
+  (deps title.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
+
+(subdir
+ layouts/
+ (rule
+  (targets layout.ml)
+  (deps layout.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
+
+(subdir
+ pages/
+ (rule
+  (targets not_found.ml)
+  (deps not_found.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets index.ml)
+  (deps index.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets projects.ml)
+  (deps projects.eml.ml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
