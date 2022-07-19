@@ -21,7 +21,7 @@ let router =
     [ page_routes
     ; Dream.get "/asset/img/**" (Dream.static "asset/img")
     ; Dream.scope "" [] [ Dream.get "/**" (Dream.static ~loader:asset_loader "") ]
-    ; Dream_livereload.route ()
+    (* ; Dream_livereload.route () *)
     ]
 ;;
 
